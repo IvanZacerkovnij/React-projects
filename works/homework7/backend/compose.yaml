@@ -1,0 +1,21 @@
+name: homework7
+
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: categories
+      POSTGRES_USER: homework
+      POSTGRES_PASSWORD: homework_local
+    ports:
+      - "127.0.0.1:5437:5432"
+    volumes:
+      - categories_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U homework -d categories"]
+      interval: 2s
+      timeout: 5s
+      retries: 30
+
+volumes:
+  categories_data:

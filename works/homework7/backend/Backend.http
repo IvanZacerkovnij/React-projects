@@ -1,0 +1,19 @@
+@Backend_HostAddress = http://localhost:5100
+
+GET {{Backend_HostAddress}}/api/categories
+Accept: application/json
+
+###
+
+GET {{Backend_HostAddress}}/api/categories?parentId=1
+
+###
+
+GET {{Backend_HostAddress}}/api/categories/4/products
+
+###
+
+POST {{Backend_HostAddress}}/api/categories
+Content-Type: application/json
+
+{"name": "Нова підкатегорія", "parentId": 1}
