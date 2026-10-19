@@ -1,8 +1,8 @@
 import type { Product } from '../types/Product';
+import { calculateDiscountedPrice, formatPrice } from '../utils/productPrice';
 
 export function ProductCard({ product }: { product: Product }) {
-  const price = product.price * (1 - product.discountPercent / 100);
-  const formatPrice = (value: number) => value.toLocaleString('uk-UA', { style: 'currency', currency: 'UAH' });
+  const price = calculateDiscountedPrice(product.price, product.discountPercent);
 
   return (
     <li className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
