@@ -1,0 +1,77 @@
+#root {
+  padding: 40px 20px;
+}
+
+article {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 24px;
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 10%);
+}
+
+article img {
+  display: block;
+  width: 240px;
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+article section {
+  min-width: 0;
+}
+
+article h1 {
+  margin: 0 0 20px;
+  color: #59451d;
+  font-size: 28px;
+  line-height: 1.3;
+}
+
+article p {
+  margin: 8px 0;
+}
+
+.profile {
+  align-items: flex-start;
+  margin-top: 32px;
+}
+
+.profile .profile-photo {
+  width: 180px;
+}
+
+.profile-info {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.profile h2 {
+  margin: 24px 0 8px;
+  font-size: 20px;
+}
+
+.profile ul {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.profile .skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0;
+  list-style: none;
+}
+
+.skills li {
+  padding: 4px 12px;
+  background-color: #f2f0eb;
+  border-radius: 6px;
+}
