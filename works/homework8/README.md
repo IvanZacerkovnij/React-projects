@@ -40,3 +40,38 @@ Open http://localhost:5173/categories, or use the port printed by Vite.
 Click a category to view its subcategories or products.
 
 Frontend checks: `npm run build` and `npm run lint`.
+
+## Frontend architecture
+
+The frontend is organized by feature:
+
+```text
+src/
+  app/
+    App.tsx       Application providers and router
+    layout/       Shared page layout, header, and footer
+    pages/        Home, About, and route error pages
+    routes/       Route configuration
+    styles/       Global styles and Tailwind CSS import
+  features/
+    catalog/
+      api/        Category and product API requests
+      hooks/      Catalog hooks
+      model/      Types, Zustand store, product context, and demo data
+      ui/         Categories, API products, and local demo products
+      index.ts    Public feature exports
+    auth/         Registration form
+    search/       Search navigation
+    examples/     Standalone learning examples
+  shared/
+    config/       Route paths
+    ui/           Reusable pagination
+  main.tsx        Application entry point
+```
+
+Application code imports features through their `index.ts` public exports.
+Files inside a feature use relative imports for that feature's implementation.
+Features can use `shared`, while `shared` does not depend on features or `app`.
+The catalog keeps the API-backed category/product screens and the local
+Context-backed product demo separate in `ui/products` and `ui/demo`.
+Existing routes, pagination, API endpoints, and demo behavior are preserved.
