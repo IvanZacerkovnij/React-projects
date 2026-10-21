@@ -1,43 +1,14 @@
-import { useState } from 'react'
-import type { SubmitEvent } from 'react'
-import { useAuth } from '../model/AuthContext'
+import { useAuthForm } from '../model/useAuthForm'
+import type { AuthFormOptions } from '../model/useAuthForm'
+import AuthFields from './AuthFields'
 
-type AuthFormProps = {
-  mode: 'login' | 'register'
-  onSuccess: () => void
+type AuthFormProps = AuthFormOptions & {
   onModeChange: () => void
-  onBusyChange: (busy: boolean) => void
 }
 
 export default function AuthForm({ mode, onSuccess, onModeChange, onBusyChange }: AuthFormProps) {
-  const { signIn } = useAuth()
-  const [error, setError] = useState('')
-  const [pending, setPending] = useState(false)
+  const { error, pending, handleSubmit } = useAuthForm({ mode, onSuccess, onBusyChange })
   const register = mode === 'register'
-
-  async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
-    event.preventDefault()
-    const data = new FormData(event.currentTarget)
-    const email = String(data.get('email')).trim()
-    const password = String(data.get('password'))
-    const repeatPassword = String(data.get('repeat_password') ?? '')
-    setError('')
-    if (register && password !== repeatPassword) {
-      setError('Паролі не збігаються.')
-      return
-    }
-    setPending(true)
-    onBusyChange(true)
-    try {
-      await signIn(mode, email, password, repeatPassword)
-      onSuccess()
-    } catch (caught) {
-      setError(caught instanceof Error ? caught.message : 'Спробуйте ще раз.')
-    } finally {
-      setPending(false)
-      onBusyChange(false)
-    }
-  }
 
   return (
     <section className="p-6 sm:p-9">
@@ -46,9 +17,7 @@ export default function AuthForm({ mode, onSuccess, onModeChange, onBusyChange }
       <p className="mb-7 mt-2 text-slate-500">{register ? 'Зареєструйтеся, щоб відкрити свій профіль.' : 'Увійдіть, щоб переглянути свій профіль.'}</p>
       <form onSubmit={handleSubmit} className="space-y-5">
         <fieldset disabled={pending} className="space-y-5 disabled:opacity-60">
-          <label>Email<input name="email" type="email" autoComplete="email" placeholder="you@example.com" maxLength={254} autoFocus required /></label>
-          <label>Пароль<input name="password" type="password" autoComplete={register ? 'new-password' : 'current-password'} minLength={register ? 8 : undefined} maxLength={128} placeholder={register ? 'Щонайменше 8 символів' : 'Ваш пароль'} required /></label>
-          {register && <label>Повторіть пароль<input name="repeat_password" type="password" autoComplete="new-password" maxLength={128} required /></label>}
+          <AuthFields mode={mode} />
           {error && <p role="alert" className="rounded-lg bg-red-50 p-3 text-sm text-red-700">{error}</p>}
           <button className="primary w-full" type="submit">{pending ? 'Зачекайте…' : register ? 'Зареєструватися' : 'Увійти'}</button>
         </fieldset>
