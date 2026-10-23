@@ -1,0 +1,29 @@
+.user-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 12px 0;
+}
+
+.user-row button {
+  flex-shrink: 0;
+}
+
+.user-name {
+  min-width: 0;
+  flex: 1;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background-color: rgb(128 128 128 / 12%);
+  overflow-wrap: anywhere;
+  font-weight: 500;
+}
+
+.success {
+  color: green;
+}
+
+.error {
+  color: red;
+}

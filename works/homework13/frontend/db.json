@@ -1,0 +1,15 @@
+{
+  "users": [
+    {
+      "id": "123",
+      "name": "john",
+      "isActive": true
+    },
+    {
+      "name": "Ivan",
+      "isActive": true,
+      "id": "kad1JJis5LU"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
